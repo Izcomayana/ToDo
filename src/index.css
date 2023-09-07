@@ -1,3 +1,5 @@
+/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+
 * {
   max-width: 1024px;
   margin: 0;
@@ -5,9 +7,12 @@
 }
 
 header {
+  padding: 12px 16px 12px 16px;
+}
+
+h1 {
   font-family: 'Inter', sans-serif;
   font-family: 'Poppins', sans-serif;
-  padding: 12px 8px 12px 8px;
 }
 
 main {
