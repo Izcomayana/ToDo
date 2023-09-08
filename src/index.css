@@ -1,4 +1,7 @@
 /* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+html {
+  margin: 0 auto;
+}
 
 * {
   max-width: 1024px;
@@ -7,15 +10,178 @@
 }
 
 header {
-  padding: 12px 16px 12px 16px;
+  /* padding: 12px 16px 12px 16px; */
 }
 
-h1 {
+/* h1, h2 {
   font-family: 'Inter', sans-serif;
   font-family: 'Poppins', sans-serif;
+  color: rgba(16, 24, 40, 1);
+  margin: 0 !important;
+} */
+
+p {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  color: rgba(71, 84, 103, 1);
+  margin: 0 !important;
+}
+
+.head {
+  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  color: rgba(16, 24, 40, 1);
+}
+
+.body {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  /* color: rgba(71, 84, 103, 1); */
+  margin: 0;
+}
+
+.navbar-toggler {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+
+  .navbar ul {
+    align-items: center;
+  }
+
+  .navs {
+    display: none;
+  }
+}
+
+.create-btn {
+  background-color: rgba(63, 91, 246, 1);
+  color: white;
+}
+
+.create-btn:hover {
+  background-color: rgb(100, 121, 244) !important;
+  transition: 150ms ease-in-out;
 }
 
 main {
-  font-family: 'Poppins', sans-serif;
-  font-family: 'Work Sans', sans-serif;
+  /* font-family: 'Poppins', sans-serif;
+  font-family: 'Work Sans', sans-serif; */
 }
+.month {
+  font-size: 1.1rem;
+}
+
+.days {
+  /* gap: 10px !important; */
+}
+
+main button {
+  font-size: 13px;
+}
+
+main button:hover, button:active, button:focus {
+  background-color: rgba(63, 91, 246, 1) !important;
+  color: rgb(255, 255, 255);
+  transition: 150ms ease-in-out;
+}
+
+.tasks {
+  gap: 1rem;
+}
+
+.task {
+  background-color: rgba(249, 250, 251, 1);
+  padding: 16px 24px 16px 24px;
+  border: 0px 0px 1px 0px;
+}
+
+.task input {
+  width: 20px;
+  height: 20px;
+}
+
+.task input:checked {
+  background-color: rgba(63, 91, 246, 1);
+  /* color: blue; */
+  border: 1px solid rgba(63, 91, 246, 0.25);
+}
+
+.task input:focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.task input:checked + label {
+  text-decoration: line-through;
+  color: rgba(208, 213, 221, 1) !important;
+}
+
+.task + input:checked {
+  background-color: rgba(234, 236, 240, 1);
+}
+
+.gray-600 {
+  color: rgba(71, 84, 103, 1);
+}
+
+footer input {
+  position: relative;
+  outline-color: rgba(63, 91, 246, 0.25);
+}
+
+footer input:focus {
+  border: 1px solid rgba(63, 91, 246, 0.25) !important;
+}
+
+footer img {
+  position: absolute;
+  right: 20px;
+  bottom: -241px;
+}
+
+
+
+
+/* .addTask textarea {
+  outline-color: rgba(63, 90, 246);
+  background-color: rgba(16, 24, 40, 0.05);
+  border: 1px solid rgba(16, 24, 40, 0.05);
+}
+
+.addTask .date {
+  width: 35%;
+}
+
+.addTask input {
+  outline: none;
+  width: 30%;
+}
+
+.btn-con button {
+  width: 48%;
+}
+
+.cancel-btn:hover {
+  background-color: rgb(230, 225, 225) !important;
+  color: black;
+  transition: 150ms ease-in-out;
+}
+
+.add-btn {
+  background-color: rgba(63, 91, 246, 1);
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: rgb(100, 121, 244) !important;
+  transition: 150ms ease-in-out;
+} */
