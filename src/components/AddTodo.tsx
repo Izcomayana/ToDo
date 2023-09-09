@@ -1,8 +1,21 @@
-// import React from 'react'
+import React, { useState } from "react";
 import notification from "../assets/images/bell.png";
 import close from "../assets/images/x-close.png";
 
-export default function AddTask() {
+interface AddProps {
+  onAdd: (newText: string) => void;
+}
+
+const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
+  const [newTodoText, setNewTodoText] = useState("");
+
+  const handleAdd = () => {
+    onAdd(newTodoText); // Pass newTodoText to onAdd
+    console.log("added", newTodoText);
+    setNewTodoText("");
+    // console.log('added in addTodo')
+  };
+
   return (
     <>
       <div className="addTask">
@@ -25,6 +38,9 @@ export default function AddTask() {
               cols="40"
               rows="5"
               className="rounded p-2 w-100"
+              placeholder="Add a new todo"
+              value={newTodoText}
+              onChange={(e) => setNewTodoText(e.target.value)}
             ></textarea>
           </div>
           <div className="p-3 border-top-0">
@@ -56,11 +72,21 @@ export default function AddTask() {
               >
                 Cancel
               </button>
-              <button className="add-btn py-2 border rounded head">Add</button>
+              <button
+                className="add-btn py-2 border rounded head"
+                disabled={newTodoText == ""}
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                onClick={handleAdd}
+              >
+                Add
+              </button>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default AddTodo;

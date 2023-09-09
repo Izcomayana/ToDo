@@ -71,7 +71,6 @@ const Todo: React.FC<TodoProps> = ({
                         {text}
                       </Link>
                     </span>
-                    {/* <span className="fw-semibold">{text}</span> */}
                     <span>10:30 am to 11:30 am</span>
                   </label>
                 </div>

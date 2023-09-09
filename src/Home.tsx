@@ -2,24 +2,24 @@ import { useState } from "react";
 import TodoList from "./components/ToDoList";
 import "./App.css";
 import Navbar from "./components/navbar";
-import AddTask from "./components/AddTask";
+import AddTask from "./components/AddTodo";
 // import mic from "./assets/images/mic.png";
 import notification from "./assets/images/bell.png";
 import close from "./assets/images/x-close.png";
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
+  // const toggleVisibility = () => {
+  //   setIsVisible(!isVisible);
+  // };
 
   return (
     <>
       <header className="mt-4 border-bottom">
         <Navbar />
       </header>
-      <main className="container">
+      <main className="mx-3">
         <div className="my-4 d-flex justify-content-between align-items-center">
           <div>
             <h2 className="fw-semibold head mb-1">Good Morning!</h2>
@@ -36,7 +36,7 @@ export default function Home() {
           <TodoList />
         </div>
 
-        {isVisible && (
+        {/* {isVisible && (
           <div className={`hidden-div ${isVisible ? "show" : ""}`}>
             <div
               className="modal fade"
@@ -125,7 +125,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               <div className="modal-dialog">
                 <div className="modal-content">
@@ -134,10 +134,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </main>
 
-      <footer className="my-3 mb-5 container d-lg-none">
+      {/* <footer className="my-3 mb-5 container d-lg-none">
         <div className="">
           <input
             type="text"
@@ -147,9 +147,9 @@ export default function Home() {
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           />
-          {/* <img src={mic} alt="mic" /> */}
+          <img src={mic} alt="mic" />
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 }

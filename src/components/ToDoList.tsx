@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Todo from "./ToDo";
 import axios from "axios";
+import AddTodo from "./AddTodo";
+import notification from "../assets/images/bell.png";
 
 interface TodoItem {
   id: number;
@@ -27,7 +29,7 @@ const days: Day[] = [
   { name: "Thurs", date: 11 },
 ];
 
-const TODOS_PER_PAGE = 4;
+const TODOS_PER_PAGE = 15;
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -35,10 +37,9 @@ const TodoList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
-  
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/todos")
+      .get("https://jsonplaceholder.typicode.com/todos?_limit=5")
       .then((response) => {
         setTodos(response.data);
         setLoading(false);
@@ -60,15 +61,11 @@ const TodoList: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const addTodoFromOtherPage = (newTodo: TodoItem) => {
-    setTodos([...todos, newTodo]);
-  };
-
-  const addTodo = () => {
-    if (newTodoText.trim() !== "") {
+  const addTodo = (newText: string) => {
+    if (newText.trim() !== "") {
       const newTodo: TodoItem = {
         id: Date.now(),
-        title: newTodoText,
+        title: newText,
         completed: false,
       };
       setTodos([...todos, newTodo]);
@@ -109,12 +106,25 @@ const TodoList: React.FC = () => {
   return (
     <div>
       <div className="d-lg-flex justify-content-between">
-        <div className="first-con pe-3">
-          <h4 className="month fw-semibold">January 2023</h4>
-          <ul className="days d-md-none d-flex justify-content-between p-0 mt-3">
-            {days
-              .filter((day) => day.date < 7)
-              .map((day) => (
+        <div className="first-con pe-3 mb-3">
+          <div className="border-bottom">
+            <h4 className="month fw-semibold">January 2023</h4>
+            <ul className="days d-md-none d-flex justify-content-between p-0 mt-3">
+              {days
+                .filter((day) => day.date < 7)
+                .map((day) => (
+                  <li
+                    key={day.date}
+                    className="d-flex bg-transparent flex-column align-items-center px-2 py-1 border rounded head h-100"
+                  >
+                    <span>{day.name}</span>
+                    <span>{day.date}</span>
+                  </li>
+                ))}
+            </ul>
+
+            <ul className="days d-none d-md-flex justify-content-between p-0 mt-3">
+              {days.map((day) => (
                 <li
                   key={day.date}
                   className="d-flex bg-transparent flex-column align-items-center px-2 py-1 border rounded head h-100"
@@ -123,71 +133,82 @@ const TodoList: React.FC = () => {
                   <span>{day.date}</span>
                 </li>
               ))}
-          </ul>
+            </ul>
 
-          <ul className="days d-none d-md-flex justify-content-between p-0 mt-3">
-            {days.map((day) => (
-              <li
-                key={day.date}
-                className="d-flex bg-transparent flex-column align-items-center px-2 py-1 border rounded head h-100"
-              >
-                <span>{day.name}</span>
-                <span>{day.date}</span>
-              </li>
-            ))}
-          </ul>
+            <h3 className="body fs-4 my-4">My Tasks</h3>
+            {loading ? (
+              <div
+                className="spinner-border text-secondary m-5"
+                role="status"
+              ></div>
+            ) : (
+              <div>
+                {displayedTodos.map((todo) => (
+                  <Todo
+                    key={todo.id}
+                    id={todo.id}
+                    text={todo.title}
+                    completed={todo.completed}
+                    onDelete={deleteTodo}
+                    onEdit={editTodo}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
 
-          <h3 className="body fs-4 my-4">My Tasks</h3>
-          {loading ? (
-            <div
-              className="spinner-border text-secondary m-5"
-              role="status"
+          <div className="d-flex justify-content-between my-3">
+            <button
+              className="bg-transparent border-0 fs-6"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
             >
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          ) : (
-            <div>
-              {displayedTodos.map((todo) => (
-                <Todo
-                  key={todo.id}
-                  id={todo.id}
-                  text={todo.title}
-                  completed={todo.completed}
-                  onDelete={deleteTodo}
-                  onEdit={editTodo}
-                />
-              ))}
-            </div>
-          )}
+              <i className="bi bi-arrow-left"></i> Previous
+            </button>
+            <button
+              className="bg-transparent border-0 fs-6"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={endIndex >= todos.length}
+            >
+              Next <i className="bi bi-arrow-right"></i>
+            </button>
+          </div>
+
+          <div className="my-3 mb-5 d-lg-none">
+            <input
+              type="text"
+              className="border w-100 rounded p-2"
+              placeholder="Input Task"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            />
+            {/* <img src={mic} alt="mic" /> */}
+          </div>
         </div>
 
-        <div className="d-flex justify-content-between">
-          <button
-            className="bg-transparent border-0 fs-6"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+        <div>
+          <div
+            className="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabIndex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
           >
-            <i className="bi bi-arrow-left"></i> Previous
-          </button>
-          <button
-            className="bg-transparent border-0 fs-6"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={endIndex >= todos.length}
-          >
-            Next <i className="bi bi-arrow-right"></i>
-          </button>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <AddTodo onAdd={addTodo} />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="second-con d-none d-lg-block">
           {/* <CalendarComponent /> */}
-          <div>
-            <input
-              type="text"
-              placeholder="Add a new todo"
-              value={newTodoText}
-              onChange={(e) => setNewTodoText(e.target.value)}
-            />
-            <button onClick={addTodo}>Add</button>
+
+          <div className="addTask shadow p-3 mb-5 bg-body-tertiary rounded">
+            <AddTodo onAdd={addTodo} />
           </div>
         </div>
       </div>

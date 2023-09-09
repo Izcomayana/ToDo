@@ -10,7 +10,7 @@ export default function navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg container">
+      <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             <h1 className="head fw-bold m-0">ToDo</h1>
