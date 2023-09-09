@@ -9,9 +9,9 @@ html {
   padding: 0;
 }
 
-header {
-  /* padding: 12px 16px 12px 16px; */
-}
+/* header {
+  padding: 12px 16px 12px 16px;
+} */
 
 /* h1, h2 {
   font-family: 'Inter', sans-serif;
@@ -62,6 +62,12 @@ p {
   }
 }
 
+@media (min-width: 992px) {
+  /* .container {
+    max-width: 1024px !important;
+  } */
+}
+
 .create-btn {
   background-color: rgba(63, 91, 246, 1);
   color: white;
@@ -72,23 +78,37 @@ p {
   transition: 150ms ease-in-out;
 }
 
-main {
-  /* font-family: 'Poppins', sans-serif;
-  font-family: 'Work Sans', sans-serif; */
+/* main {
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Work Sans', sans-serif;
+} */
+
+.rbc-btn-group {
+  display: none;
 }
+
+@media (min-width: 992px) {
+  .first-con {
+    width: 70%;
+    border-right: 0.75px solid rgba(63, 91, 246, 0.25);
+  }
+
+  .second-con {
+    width: 25%;
+  }
+}
+
+
 .month {
   font-size: 1.1rem;
 }
 
-.days {
-  /* gap: 10px !important; */
-}
-
-main button {
+.first-con li {
   font-size: 13px;
+  cursor: pointer;
 }
 
-main button:hover, button:active, button:focus {
+.first-con li:hover, li:active, li:focus {
   background-color: rgba(63, 91, 246, 1) !important;
   color: rgb(255, 255, 255);
   transition: 150ms ease-in-out;
@@ -121,12 +141,27 @@ main button:hover, button:active, button:focus {
 }
 
 .task input:checked + label {
-  text-decoration: line-through;
+  text-decoration: line-through !important;
   color: rgba(208, 213, 221, 1) !important;
 }
 
-.task + input:checked {
+.check {
+  text-decoration: none !;
+  color: rgba(16, 24, 40, 1);
+}
+
+/* .task + input:checked {
+  text-decoration: line-through;
   background-color: rgba(234, 236, 240, 1);
+} */
+
+.done {
+  text-decoration: line-through;
+  color: rgba(234, 236, 240, 1);
+}
+
+.pending {
+  color: rgba(16, 24, 40, 1);
 }
 
 .gray-600 {
@@ -142,28 +177,26 @@ footer input:focus {
   border: 1px solid rgba(63, 91, 246, 0.25) !important;
 }
 
-footer img {
+/* footer img {
   position: absolute;
   right: 20px;
-  bottom: -241px;
-}
+  bottom: -18.9rem;
+} */
 
 
-
-
-/* .addTask textarea {
+.addTask textarea {
   outline-color: rgba(63, 90, 246);
   background-color: rgba(16, 24, 40, 0.05);
   border: 1px solid rgba(16, 24, 40, 0.05);
 }
 
 .addTask .date {
-  width: 35%;
+  width: 33%;
 }
 
 .addTask input {
   outline: none;
-  width: 30%;
+  width: 27%;
 }
 
 .btn-con button {
@@ -184,4 +217,4 @@ footer img {
 .add-btn:hover {
   background-color: rgb(100, 121, 244) !important;
   transition: 150ms ease-in-out;
-} */
+}
