@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 interface TodoProps {
   id: number;
@@ -59,17 +58,14 @@ const Todo: React.FC<TodoProps> = ({
                     onClick={handleCheck}
                   />
                   <label className="form-check-label d-flex flex-column">
-                    <span>
-                      <Link
-                        className={
-                          "text-decoration-none " +
-                          " " +
-                          (check ? "done" : "pending")
-                        }
-                        to={`/todo/${id}`}
-                      >
-                        {text}
-                      </Link>
+                    <span
+                      className={
+                        "text-decoration-none " +
+                        " " +
+                        (check ? "done" : "pending")
+                      }
+                    >
+                      {text}
                     </span>
                     <span>10:30 am to 11:30 am</span>
                   </label>

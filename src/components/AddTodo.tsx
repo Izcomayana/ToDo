@@ -9,12 +9,18 @@ interface AddProps {
 
 const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
   const [newTodoText, setNewTodoText] = useState("");
+  const [showAlarm, setShowAlarm] = useState(true);
+
 
   const handleAdd = () => {
     onAdd(newTodoText);
     console.log("added", newTodoText);
     setNewTodoText("");
   };
+
+  const closeAlarm = () => {
+    setShowAlarm(!showAlarm)
+  }
 
   return (
     <>
@@ -61,15 +67,20 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
               <input type="time" name="" id="" className="border rounded p-1" />
               <input type="time" name="" id="" className="border rounded p-1" />
             </div>
-            <div className="d-flex justify-content-between mb-4">
-              <span className="d-flex w-75">
-                <img src={notification} alt="notification" className="me-2" />
-                <p>10 Minutes before</p>
-              </span>
-              <span>
-                <img src={close} alt="x-close" />
-              </span>
-            </div>
+            {showAlarm ? (
+              <div className="d-flex justify-content-between mb-4">
+                <span className="d-flex w-75">
+                  <img src={notification} alt="notification" className="me-2" />
+                  <p>10 Minutes before</p>
+                </span>
+                <span>
+                  {/* <img src={close} alt="x-close" onClick={closeAlarm} /> */}
+                </span>
+              </div>
+            ) : (
+              <></>
+            )}
+
             <div className="btn-con d-flex justify-content-between">
               <button
                 className="cancel-btn bg-transparent py-2 border rounded head d-lg-none"
