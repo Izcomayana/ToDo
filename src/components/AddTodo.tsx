@@ -4,9 +4,10 @@ import close from "../assets/images/x-close.png";
 
 interface AddProps {
   onAdd: (newText: string) => void;
+  closeAdd: () => void;
 }
 
-const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
+const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
   const [newTodoText, setNewTodoText] = useState("");
 
   const handleAdd = () => {
@@ -25,18 +26,24 @@ const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
             </h1>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close d-lg-none"
               data-bs-dismiss="modal"
               aria-label="Close"
+            ></button>
+
+            <button
+              type="button"
+              className="btn-close d-none d-lg-block"
+              onClick={closeAdd}
             ></button>
           </div>
           <div className="modal-body py-0">
             <textarea
               name=""
               id=""
-              cols="40"
-              rows="5"
-              className="rounded p-2 w-100"
+              cols={40}
+              rows={5}
+              className="rounded p-2 w-100 mt-lg-3"
               placeholder="Add a new todo"
               value={newTodoText}
               onChange={(e) => setNewTodoText(e.target.value)}
@@ -65,9 +72,15 @@ const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
             </div>
             <div className="btn-con d-flex justify-content-between">
               <button
-                className="cancel-btn bg-transparent py-2 border rounded head"
+                className="cancel-btn bg-transparent py-2 border rounded head d-lg-none"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+              >
+                Cancel
+              </button>
+              <button
+                className="cancel-btn bg-transparent py-2 border rounded head d-none d-lg-block"
+                onClick={closeAdd}
               >
                 Cancel
               </button>

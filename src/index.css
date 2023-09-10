@@ -9,22 +9,22 @@ html {
 }
 
 p {
-  font-family: 'Poppins', sans-serif;
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-weight: 400;
   color: rgba(71, 84, 103, 1);
   margin: 0 !important;
 }
 
 .head {
-  font-family: 'Inter', sans-serif;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: rgba(16, 24, 40, 1);
 }
 
 .body {
-  font-family: 'Poppins', sans-serif;
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-weight: 400;
   margin: 0;
 }
@@ -83,19 +83,23 @@ p {
   cursor: pointer;
 }
 
-.first-con li:hover, li:active, li:focus {
+.first-con li:hover,
+li:active,
+li:focus {
   background-color: rgba(63, 91, 246, 1) !important;
   color: rgb(255, 255, 255);
   transition: 150ms ease-in-out;
 }
 
-.tasks:hover, .tasks:active {
+.task:hover,
+.task:active {
   background-color: rgba(234, 236, 240, 1);
   transition: 250ms ease-in-out;
+  cursor: pointer;
 }
 
-.tasks {
-  gap: 1rem;
+.task {
+  gap: 1.5rem;
 }
 
 .task {
@@ -150,7 +154,6 @@ footer input {
 footer input:focus {
   border: 1px solid rgba(63, 91, 246, 0.25) !important;
 }
-
 
 .addTask textarea {
   outline-color: rgba(63, 90, 246);

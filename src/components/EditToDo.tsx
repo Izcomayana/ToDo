@@ -4,9 +4,10 @@ import close from "../assets/images/x-close.png";
 
 interface AddProps {
   onAdd: (newText: string) => void;
+  closeEdit: () => void;
 }
 
-const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
+const AddTodo: React.FC<AddProps> = ({ onAdd, closeEdit }) => {
   const [newTodoText, setNewTodoText] = useState("");
 
   const handleSave = () => {
@@ -24,21 +25,31 @@ const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
             <h1 className="modal-title fs-5" id="exampleModalToggleLabel2">
               Edit Task
             </h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              className="btn-close d-lg-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            <button
+              type="button"
+              className="btn-close d-none d-lg-block"
+              onClick={closeEdit}
+            ></button>
           </div>
-          <div className="modal-body py-0">
+          <div className="modal-body py-0 mt-lg-3">
             <textarea
               name=""
               id=""
-              cols="40"
-              rows="5"
+              cols={40}
+              rows={5}
               className="rounded p-2 w-100"
               placeholder="Add a new todo"
               value={newTodoText}
               onChange={(e) => setNewTodoText(e.target.value)}
             ></textarea>
           </div>
-          <div className="p-3 border-top-0">
+          <div className="p-3 border-top-0 p-lg-0">
             <div className="my-3 d-flex justify-content-between">
               <input
                 type="date"
@@ -61,16 +72,35 @@ const AddTodo: React.FC<AddProps> = ({ onAdd }) => {
             </div>
             <div className="btn-con d-flex justify-content-between">
               <button
-                className="cancel-btn bg-transparent py-2 border rounded head"
-                data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                className="cancel-btn bg-transparent py-2 border rounded head d-lg-none"
+                data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal"
               >
                 Cancel
               </button>
               <button
-                className="add-btn py-2 border rounded head"
+                className="cancel-btn bg-transparent py-2 border rounded head d-none d-lg-block"
+                onClick={closeEdit}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="add-btn py-2 border rounded head d-lg-none"
                 disabled={newTodoText == ""}
-                data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal"
                 onClick={handleSave}
+              >
+                Save
+              </button>
+              <button
+                className="add-btn py-2 border rounded head d-none d-lg-block"
+                disabled={newTodoText == ""}
+                onClick={() => {
+                  handleSave();
+                  closeEdit();
+                }}
               >
                 Save
               </button>
