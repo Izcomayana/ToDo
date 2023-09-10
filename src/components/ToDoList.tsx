@@ -109,6 +109,21 @@ const TodoList: React.FC = () => {
       });
   };
 
+  const [selectedTodo, setSelectedTodo] = useState<TodoItem | null>(null);
+
+  // Function to open TodoView modal
+  const openTodoView = (id: number) => {
+    const todoToShow = todos.find((todo) => todo.id === id);
+    if (todoToShow) {
+      setSelectedTodo(todoToShow);
+    }
+  };
+
+  // Function to close TodoView modal
+  // const closeTodoView = () => {
+  //   setSelectedTodo(null);
+  // };
+
   return (
     <>
       <div className="my-4 d-flex justify-content-between align-items-center">
@@ -131,7 +146,7 @@ const TodoList: React.FC = () => {
           <div className="first-con pe-3 mb-3">
             <div className="border-bottom">
               <Dates />
-              
+
               {loading ? (
                 <div
                   className="spinner-border text-secondary m-5"
@@ -141,7 +156,7 @@ const TodoList: React.FC = () => {
                 <div className="todos">
                   {displayedTodos.map((todo) => (
                     <div>
-                      <span className="d-none d-lg-block" onClick={openTodo}>
+                      <span className="d-none d-lg-block" onClick={() => {openTodoView(todo.id); openTodo();}}>
                         <Todo
                           key={todo.id}
                           id={todo.id}
@@ -153,6 +168,7 @@ const TodoList: React.FC = () => {
                       </span>
 
                       <span
+                        onClick={() => openTodoView(todo.id)}
                         data-bs-target="#exampleModalToggle"
                         data-bs-toggle="modal"
                         className="d-block d-lg-none"
@@ -220,19 +236,27 @@ const TodoList: React.FC = () => {
             </div>
           </div>
 
-          <div
-            className="modal fade"
-            id="exampleModalToggle"
-            aria-hidden="true"
-            aria-labelledby="exampleModalToggleLabel"
-            tabIndex="-1"
-          >
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <TodoView />
+          {selectedTodo && (
+            <div
+              className="modal fade"
+              id="exampleModalToggle"
+              aria-hidden="true"
+              aria-labelledby="exampleModalToggleLabel"
+              tabIndex="-1"
+            >
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                  <TodoView
+                    id={selectedTodo.id}
+                    text={selectedTodo.title}
+                    onDelete={deleteTodo}
+                    closeTodo={closeTodo}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div
             className="modal fade"
             id="exampleModalToggle2"
@@ -254,9 +278,13 @@ const TodoList: React.FC = () => {
               <div className="addTask shadow p-3 mb-5 bg-body-tertiary rounded">
                 <AddTodo onAdd={addTodo} closeAdd={closeAdd} />
               </div>
-            ) : showTodo ? (
+            ) : selectedTodo && showTodo ? (
               <div className="addTask shadow p-3 mb-5 bg-body-tertiary rounded">
-                <TodoView closeTodo={closeTodo} />
+                <TodoView id={selectedTodo.id}
+                  text={selectedTodo.title}
+                  onDelete={deleteTodo} 
+                  closeTodo={closeTodo} 
+                />
               </div>
             ) : (
               <div>calendar</div>
