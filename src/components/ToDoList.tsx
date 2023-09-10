@@ -2,14 +2,9 @@ import React, { useState, useEffect } from "react";
 import Todo from "./ToDo";
 import axios from "axios";
 import AddTodo from "./AddTodo";
-import EditToDo from "./EditToDo";
-// import notification from "../assets/images/bell.png";
+import EditTodo from "./EditToDo";
 import TodoView from "./ToDoView";
 import Dates from "./dates";
-
-// interface TodoListProps {
-//   showAdd: boolean;
-// }
 
 interface TodoItem {
   id: number;
@@ -21,7 +16,7 @@ const TODOS_PER_PAGE = 15;
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
-  const [newTodoText, setNewTodoText] = useState("");
+  // const [newTodoText, setNewTodoText] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAdd, setShowAdd] = useState(false);
@@ -77,7 +72,7 @@ const TodoList: React.FC = () => {
         completed: false,
       };
       setTodos([...todos, newTodo]);
-      setNewTodoText("");
+      // setNewTodoText("");
     }
   };
 
@@ -92,7 +87,7 @@ const TodoList: React.FC = () => {
       });
   };
 
-  const editTodo = (id: number, newText: string, completed: boolean) => {
+  const editTodo = (id: number, newText: string) => {
     axios
       .put(`https://jsonplaceholder.typicode.com/todos/${id}`, {
         title: newText,
@@ -100,7 +95,7 @@ const TodoList: React.FC = () => {
       .then(() => {
         setTodos(
           todos.map((todo) =>
-            todo.id === id ? { ...todo, title: newText, completed } : todo
+            todo.id === id ? { ...todo, title: newText } : todo
           )
         );
       })
@@ -111,7 +106,6 @@ const TodoList: React.FC = () => {
 
   const [selectedTodo, setSelectedTodo] = useState<TodoItem | null>(null);
 
-  // Function to open TodoView modal
   const openTodoView = (id: number) => {
     const todoToShow = todos.find((todo) => todo.id === id);
     if (todoToShow) {
@@ -156,14 +150,17 @@ const TodoList: React.FC = () => {
                 <div className="todos">
                   {displayedTodos.map((todo) => (
                     <div>
-                      <span className="d-none d-lg-block" onClick={() => {openTodoView(todo.id); openTodo();}}>
+                      <span
+                        className="d-none d-lg-block"
+                        onClick={() => {
+                          openTodoView(todo.id);
+                          openTodo();
+                        }}
+                      >
                         <Todo
                           key={todo.id}
-                          id={todo.id}
                           text={todo.title}
                           completed={todo.completed}
-                          onDelete={deleteTodo}
-                          onEdit={editTodo}
                         />
                       </span>
 
@@ -175,11 +172,8 @@ const TodoList: React.FC = () => {
                       >
                         <Todo
                           key={todo.id}
-                          id={todo.id}
                           text={todo.title}
                           completed={todo.completed}
-                          onDelete={deleteTodo}
-                          onEdit={editTodo}
                         />
                       </span>
                     </div>
@@ -224,13 +218,13 @@ const TodoList: React.FC = () => {
               id="addBackdrop"
               data-bs-backdrop="static"
               data-bs-keyboard="false"
-              tabIndex="-1"
+              tabIndex={-1}
               aria-labelledby="staticBackdropLabel"
               aria-hidden="true"
             >
               <div className="modal-dialog">
                 <div className="modal-content">
-                  <AddTodo onAdd={addTodo} />
+                  <AddTodo onAdd={addTodo} closeAdd={closeAdd} />
                 </div>
               </div>
             </div>
@@ -242,7 +236,7 @@ const TodoList: React.FC = () => {
               id="exampleModalToggle"
               aria-hidden="true"
               aria-labelledby="exampleModalToggleLabel"
-              tabIndex="-1"
+              tabIndex={-1}
             >
               <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
@@ -251,25 +245,32 @@ const TodoList: React.FC = () => {
                     text={selectedTodo.title}
                     onDelete={deleteTodo}
                     closeTodo={closeTodo}
+                    onEdit={(newText) => editTodo(selectedTodo.id, newText)}
                   />
                 </div>
               </div>
             </div>
           )}
 
-          <div
-            className="modal fade"
-            id="exampleModalToggle2"
-            aria-hidden="true"
-            aria-labelledby="exampleModalToggleLabel2"
-            tabIndex="-1"
-          >
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <EditToDo />
+          {selectedTodo && (
+            <div
+              className="modal fade"
+              id="exampleModalToggle2"
+              aria-hidden="true"
+              aria-labelledby="exampleModalToggleLabel2"
+              tabIndex={-1}
+            >
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                  <EditTodo
+                    text={selectedTodo.title}
+                    onEdit={(newText) => editTodo(selectedTodo.id, newText)}
+                    closeEdit={() => setSelectedTodo(null)}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="second-con d-none d-lg-block">
             {/* <CalendarComponent /> */}
@@ -280,10 +281,12 @@ const TodoList: React.FC = () => {
               </div>
             ) : selectedTodo && showTodo ? (
               <div className="addTask shadow p-3 mb-5 bg-body-tertiary rounded">
-                <TodoView id={selectedTodo.id}
+                <TodoView
+                  id={selectedTodo.id}
                   text={selectedTodo.title}
-                  onDelete={deleteTodo} 
-                  closeTodo={closeTodo} 
+                  onDelete={deleteTodo}
+                  closeTodo={closeTodo}
+                  onEdit={(newText) => editTodo(selectedTodo.id, newText)}
                 />
               </div>
             ) : (

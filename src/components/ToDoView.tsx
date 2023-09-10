@@ -8,6 +8,7 @@ interface TodoViewProps {
   text: string;
   onDelete: (id: number) => void;
   closeTodo: () => void;
+  onEdit: (newText: string) => void;
 }
 
 const TodoView: React.FC<TodoViewProps> = ({
@@ -15,8 +16,10 @@ const TodoView: React.FC<TodoViewProps> = ({
   text,
   onDelete,
   closeTodo,
+  onEdit,
 }) => {
   const [showEdit, setShowEdit] = useState(false);
+  const [newText, setNewText] = useState(text);
 
   const openEdit = () => {
     setShowEdit(true);
@@ -30,12 +33,20 @@ const TodoView: React.FC<TodoViewProps> = ({
     <>
       <div className="addTask">
         {showEdit ? (
-          <EditToDo closeEdit={closeEdit} />
+          <EditToDo
+            text={text}
+            closeEdit={closeEdit}
+            onEdit={(newText) => {
+              onEdit(newText);
+              setNewText(newText);
+            }}
+          />
         ) : (
           <div className="d-flex flex-column justify-content-between m-3">
             <div className="modal-header border-bottom-0 ">
               <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
-                {text}
+               <span className="d-lg-none">{text}</span>
+               <span className="d-none d-lg-block">{newText}</span>
               </h1>
               <button
                 type="button"

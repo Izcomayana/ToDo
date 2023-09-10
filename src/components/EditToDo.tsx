@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import notification from "../assets/images/bell.png";
 import close from "../assets/images/x-close.png";
 
-interface AddProps {
-  onAdd: (newText: string) => void;
+interface EditProps {
+  text: string;
+  onEdit: (newText: string) => void;
   closeEdit: () => void;
 }
 
-const AddTodo: React.FC<AddProps> = ({ onAdd, closeEdit }) => {
-  const [newTodoText, setNewTodoText] = useState("");
+const EditTodo: React.FC<EditProps> = ({ text, onEdit, closeEdit }) => {
+  const [newText, setNewText] = useState(text);
 
-  const handleSave = () => {
-    // onAdd(newTodoText); // Pass newTodoText to onAdd
-    // console.log("added", newTodoText);
-    // setNewTodoText("");
-    // console.log('added in addTodo')
+  const handleSaveClick = () => {
+    onEdit(newText);
   };
 
   return (
@@ -45,8 +43,8 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeEdit }) => {
               rows={5}
               className="rounded p-2 w-100"
               placeholder="Add a new todo"
-              value={newTodoText}
-              onChange={(e) => setNewTodoText(e.target.value)}
+              value={newText}
+              onChange={(e) => setNewText(e.target.value)}
             ></textarea>
           </div>
           <div className="p-3 border-top-0 p-lg-0">
@@ -87,18 +85,18 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeEdit }) => {
 
               <button
                 className="add-btn py-2 border rounded head d-lg-none"
-                disabled={newTodoText == ""}
+                disabled={newText == ""}
                 data-bs-target="#exampleModalToggle"
                 data-bs-toggle="modal"
-                onClick={handleSave}
+                onClick={handleSaveClick}
               >
                 Save
               </button>
               <button
                 className="add-btn py-2 border rounded head d-none d-lg-block"
-                disabled={newTodoText == ""}
+                disabled={newText == ""}
                 onClick={() => {
-                  handleSave();
+                  handleSaveClick();
                   closeEdit();
                 }}
               >
@@ -112,4 +110,4 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeEdit }) => {
   );
 };
 
-export default AddTodo;
+export default EditTodo;

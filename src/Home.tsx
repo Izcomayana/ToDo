@@ -1,4 +1,4 @@
-import TodoList from "./components/TodoList";
+import TodoList from "./components/ToDoList";
 import "./App.css";
 import Navbar from "./components/navbar";
 

@@ -11,16 +11,16 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
   const [newTodoText, setNewTodoText] = useState("");
   const [showAlarm, setShowAlarm] = useState(true);
 
-
   const handleAdd = () => {
     onAdd(newTodoText);
     console.log("added", newTodoText);
     setNewTodoText("");
+    setShowAlarm(true);
   };
 
   const closeAlarm = () => {
-    setShowAlarm(!showAlarm)
-  }
+    setShowAlarm(false);
+  };
 
   return (
     <>
@@ -35,6 +35,7 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
               className="btn-close d-lg-none"
               data-bs-dismiss="modal"
               aria-label="Close"
+              onClick={() => setShowAlarm(true)}
             ></button>
 
             <button
@@ -55,7 +56,7 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
               onChange={(e) => setNewTodoText(e.target.value)}
             ></textarea>
           </div>
-          <div className="p-3 border-top-0">
+          <div className="p-3 p-lg-0 border-top-0">
             <div className="my-3 d-flex justify-content-between">
               <input
                 type="date"
@@ -74,7 +75,7 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
                   <p>10 Minutes before</p>
                 </span>
                 <span>
-                  {/* <img src={close} alt="x-close" onClick={closeAlarm} /> */}
+                  <img src={close} alt="x-close" onClick={closeAlarm} />
                 </span>
               </div>
             ) : (
@@ -86,6 +87,7 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
                 className="cancel-btn bg-transparent py-2 border rounded head d-lg-none"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={() => setShowAlarm(true)}
               >
                 Cancel
               </button>
@@ -100,7 +102,10 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
                 disabled={newTodoText == ""}
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                onClick={handleAdd}
+                onClick={() => {
+                  handleAdd();
+                  setShowAlarm(true);
+                }}
               >
                 Add
               </button>
