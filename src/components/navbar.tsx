@@ -56,11 +56,6 @@ export default function navbar() {
                   <span className="navs">John Doe</span>
                 </a>
               </li>
-              {/* <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">
-                  Disabled
-                </a>
-              </li> */}
             </ul>
           </div>
         </div>

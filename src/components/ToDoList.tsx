@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import Todo from "./ToDo";
 import axios from "axios";
 import AddTodo from "./AddTodo";
+import EditToDo from './EditToDo'
 import notification from "../assets/images/bell.png";
+import TodoView from "./ToDoView";
 
 interface TodoItem {
   id: number;
@@ -74,9 +76,8 @@ const TodoList: React.FC = () => {
   };
 
   const deleteTodo = (id: number) => {
-    // Send a delete request to your API to delete the todo
     axios
-      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`) // Replace with your API URL
+      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
       })
@@ -86,11 +87,10 @@ const TodoList: React.FC = () => {
   };
 
   const editTodo = (id: number, newText: string, completed: boolean) => {
-    // Send a put/patch request to your API to update the todo
     axios
       .put(`https://jsonplaceholder.typicode.com/todos/${id}`, {
         title: newText,
-      }) // Replace with your API URL
+      })
       .then(() => {
         setTodos(
           todos.map((todo) =>
@@ -142,16 +142,18 @@ const TodoList: React.FC = () => {
                 role="status"
               ></div>
             ) : (
-              <div>
+              <div className="todos">
                 {displayedTodos.map((todo) => (
-                  <Todo
-                    key={todo.id}
-                    id={todo.id}
-                    text={todo.title}
-                    completed={todo.completed}
-                    onDelete={deleteTodo}
-                    onEdit={editTodo}
-                  />
+                  <span data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                    <Todo
+                      key={todo.id}
+                      id={todo.id}
+                      text={todo.title}
+                      completed={todo.completed}
+                      onDelete={deleteTodo}
+                      onEdit={editTodo}
+                    />
+                  </span>
                 ))}
               </div>
             )}
@@ -178,18 +180,18 @@ const TodoList: React.FC = () => {
             <input
               type="text"
               className="border w-100 rounded p-2"
-              placeholder="Input Task"
+              placeholder="Creat New Task"
               data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
+              data-bs-target="#addBackdrop"
+              value={''}
             />
-            {/* <img src={mic} alt="mic" /> */}
           </div>
         </div>
 
         <div>
           <div
             className="modal fade"
-            id="staticBackdrop"
+            id="addBackdrop"
             data-bs-backdrop="static"
             data-bs-keyboard="false"
             tabIndex="-1"
@@ -200,6 +202,21 @@ const TodoList: React.FC = () => {
               <div className="modal-content">
                 <AddTodo onAdd={addTodo} />
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <TodoView />
+            </div>
+          </div>
+        </div>
+        <div className="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <EditToDo />
             </div>
           </div>
         </div>
