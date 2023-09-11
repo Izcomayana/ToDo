@@ -13,7 +13,7 @@ interface TodoItem {
   completed: boolean;
 }
 
-const TODOS_PER_PAGE = 15;
+const TODOS_PER_PAGE = 6;
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -43,7 +43,7 @@ const TodoList: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/todos?_limit=5")
+      .get("https://jsonplaceholder.typicode.com/todos?_limit=30")
       .then((response) => {
         setTodos(response.data);
         setLoading(false);
@@ -72,7 +72,7 @@ const TodoList: React.FC = () => {
         title: newText,
         completed: false,
       };
-      setTodos([...todos, newTodo]);
+      setTodos([ newTodo, ...todos]);
       // setNewTodoText("");
     }
   };
