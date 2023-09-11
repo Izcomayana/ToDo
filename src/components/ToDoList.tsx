@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Todo from "./Todo";
+import Todo from "./ToDo";
 import axios from "axios";
 import AddTodo from "./AddTodo";
-import EditTodo from "./EditTodo";
-import TodoView from "./TodoView";
+import EditTodo from "./EditToDo";
+import TodoView from "./ToDoView";
 import Dates from "./Dates";
 import Calender from "../Calender";
 
