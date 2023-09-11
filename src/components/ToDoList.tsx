@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Todo from "./ToDo";
+import Todo from "./Todo";
 import axios from "axios";
 import AddTodo from "./AddTodo";
-import EditTodo from "./EditToDo";
-import TodoView from "./ToDoView";
-import Dates from "./dates";
+import EditTodo from "./EditTodo";
+import TodoView from "./TodoView";
+import Dates from "./Dates";
 import Calender from "../Calender";
 
 interface TodoItem {
