@@ -10,9 +10,15 @@ interface EditProps {
 
 const EditTodo: React.FC<EditProps> = ({ text, onEdit, closeEdit }) => {
   const [newText, setNewText] = useState(text);
+  const [showAlarm, setShowAlarm] = useState(true);
 
   const handleSaveClick = () => {
     onEdit(newText);
+    setShowAlarm(true);
+  };
+
+  const openAlarm = () => {
+    setShowAlarm(true);
   };
 
   return (
@@ -59,26 +65,38 @@ const EditTodo: React.FC<EditProps> = ({ text, onEdit, closeEdit }) => {
               <input type="time" name="" id="" className="border rounded p-1" />
               <input type="time" name="" id="" className="border rounded p-1" />
             </div>
-            <div className="d-flex justify-content-between mb-4">
-              <span className="d-flex w-75">
-                <img src={notification} alt="notification" className="me-2" />
-                <p>10 Minutes before</p>
-              </span>
-              <span>
-                <img src={close} alt="x-close" />
-              </span>
-            </div>
+            {showAlarm ? (
+              <div className="d-flex justify-content-between mb-4">
+                <span className="d-flex w-75">
+                  <img src={notification} alt="notification" className="me-2" />
+                  <p>10 Minutes before</p>
+                </span>
+                <span>
+                  <img
+                    src={close}
+                    alt="x-close"
+                    onClick={() => setShowAlarm(false)}
+                  />
+                </span>
+              </div>
+            ) : (
+              <></>
+            )}
             <div className="btn-con d-flex justify-content-between">
               <button
                 className="cancel-btn bg-transparent py-2 border rounded head d-lg-none"
                 data-bs-target="#exampleModalToggle"
                 data-bs-toggle="modal"
+                onClick={openAlarm}
               >
                 Cancel
               </button>
               <button
                 className="cancel-btn bg-transparent py-2 border rounded head d-none d-lg-block"
-                onClick={closeEdit}
+                onClick={() => {
+                  closeEdit();
+                  openAlarm();
+                }}
               >
                 Cancel
               </button>
@@ -88,7 +106,10 @@ const EditTodo: React.FC<EditProps> = ({ text, onEdit, closeEdit }) => {
                 disabled={newText == ""}
                 data-bs-target="#exampleModalToggle"
                 data-bs-toggle="modal"
-                onClick={handleSaveClick}
+                onClick={() => {
+                  handleSaveClick();
+                  openAlarm();
+                }}
               >
                 Save
               </button>
@@ -98,6 +119,7 @@ const EditTodo: React.FC<EditProps> = ({ text, onEdit, closeEdit }) => {
                 onClick={() => {
                   handleSaveClick();
                   closeEdit();
+                  openAlarm();
                 }}
               >
                 Save

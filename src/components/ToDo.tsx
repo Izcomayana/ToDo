@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 interface TodoProps {
+  id: number;
   text: string;
   completed: boolean;
 }

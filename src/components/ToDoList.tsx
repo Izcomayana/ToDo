@@ -5,6 +5,7 @@ import AddTodo from "./AddTodo";
 import EditTodo from "./EditToDo";
 import TodoView from "./ToDoView";
 import Dates from "./dates";
+import Calender from "../Calender";
 
 interface TodoItem {
   id: number;
@@ -158,6 +159,7 @@ const TodoList: React.FC = () => {
                         }}
                       >
                         <Todo
+                          id={todo.id}
                           key={todo.id}
                           text={todo.title}
                           completed={todo.completed}
@@ -171,6 +173,7 @@ const TodoList: React.FC = () => {
                         className="d-block d-lg-none"
                       >
                         <Todo
+                          id={todo.id}
                           key={todo.id}
                           text={todo.title}
                           completed={todo.completed}
@@ -273,8 +276,6 @@ const TodoList: React.FC = () => {
           )}
 
           <div className="second-con d-none d-lg-block">
-            {/* <CalendarComponent /> */}
-
             {showAdd ? (
               <div className="addTask shadow p-3 mb-5 bg-body-tertiary rounded">
                 <AddTodo onAdd={addTodo} closeAdd={closeAdd} />
@@ -290,7 +291,9 @@ const TodoList: React.FC = () => {
                 />
               </div>
             ) : (
-              <div>calendar</div>
+              <>
+                <Calender />
+              </>
             )}
           </div>
         </div>

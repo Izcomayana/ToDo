@@ -18,10 +18,6 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
     setShowAlarm(true);
   };
 
-  const closeAlarm = () => {
-    setShowAlarm(false);
-  };
-
   return (
     <>
       <div className="addTask">
@@ -75,13 +71,16 @@ const AddTodo: React.FC<AddProps> = ({ onAdd, closeAdd }) => {
                   <p>10 Minutes before</p>
                 </span>
                 <span>
-                  <img src={close} alt="x-close" onClick={closeAlarm} />
+                  <img
+                    src={close}
+                    alt="x-close"
+                    onClick={() => setShowAlarm(false)}
+                  />
                 </span>
               </div>
             ) : (
               <></>
             )}
-
             <div className="btn-con d-flex justify-content-between">
               <button
                 className="cancel-btn bg-transparent py-2 border rounded head d-lg-none"
